@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">Welcome back, <span>{{ session.name }}</span> 👋</div>
+    <div style="color: var(--muted); font-size: 13px;">University Placement Cell</div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value">{{ total_students }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Partner Companies</div>
+        <div class="stat-value">{{ total_companies }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Open Jobs</div>
+        <div class="stat-value">{{ open_jobs }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Students Placed</div>
+        <div class="stat-value">{{ placed }}</div>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="table-head">
+        <div class="table-title">Recent Applications</div>
+        <a href="{{ url_for('applications') }}" class="btn btn-outline btn-sm">View All</a>
+    </div>
+    {% if recent_apps %}
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Company</th>
+                <th>Job Role</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in recent_apps %}
+            <tr>
+                <td><strong>{{ a.student_name }}</strong></td>
+                <td>{{ a.company_name }}</td>
+                <td>{{ a.job_title }}</td>
+                <td><span class="badge badge-{{ a.status }}">{{ a.status }}</span></td>
+                <td style="color: var(--muted);">{{ a.applied_date.strftime('%d %b %Y') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="empty-icon">📋</div>No applications yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

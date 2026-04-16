@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Companies{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">🏢 <span>Companies</span></div>
+    {% if session.role == 'admin' %}
+    <a href="{{ url_for('add_company') }}" class="btn btn-primary">+ Add Company</a>
+    {% endif %}
+</div>
+
+<div class="table-card">
+    <div class="table-head">
+        <div class="table-title">Partner Companies ({{ companies|length }})</div>
+    </div>
+    {% if companies %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Company</th>
+                <th>Industry</th>
+                <th>Location</th>
+                <th>Contact Person</th>
+                <th>Email</th>
+                {% if session.role == 'admin' %}<th>Actions</th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in companies %}
+            <tr>
+                <td style="color:var(--muted);">{{ loop.index }}</td>
+                <td>
+                    <strong>{{ c.name }}</strong><br>
+                    {% if c.website %}<a href="{{ c.website }}" target="_blank" style="color:var(--accent3);font-size:11px;">🔗 Website</a>{% endif %}
+                </td>
+                <td>{{ c.industry }}</td>
+                <td>{{ c.location }}</td>
+                <td>{{ c.contact_person }}</td>
+                <td style="color:var(--muted);">{{ c.contact_email }}</td>
+                {% if session.role == 'admin' %}
+                <td>
+                    <div class="actions">
+                        <a href="{{ url_for('edit_company', id=c.id) }}" class="btn btn-edit btn-sm">Edit</a>
+                        <a href="{{ url_for('delete_company', id=c.id) }}" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this company?')">Del</a>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="empty-icon">🏢</div>No companies added yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">🔑 <span>Manage Users</span></div>
+    <a href="{{ url_for('add_user') }}" class="btn btn-primary">+ Add User</a>
+</div>
+<div class="table-card">
+    <div class="table-head">
+        <div class="table-title">System Users ({{ users|length }})</div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td style="color:var(--muted);">{{ loop.index }}</td>
+                <td>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <div class="user-avatar" style="width:28px;height:28px;font-size:12px;">{{ u.name[0] }}</div>
+                        <strong>{{ u.name }}</strong>
+                    </div>
+                </td>
+                <td style="color:var(--muted);">{{ u.email }}</td>
+                <td><span class="badge badge-{{ u.role }}">{{ u.role }}</span></td>
+                <td style="color:var(--muted);">{{ u.created_at.strftime('%d %b %Y') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

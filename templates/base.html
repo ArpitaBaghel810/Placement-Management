@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Placement Cell{% endblock %} | University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% if session.user_id %}
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">🎓</div>
+            <div>
+                <div class="brand-title">PlaceCell</div>
+                <div class="brand-sub">University Portal</div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                <span class="nav-icon">⬛</span> Dashboard
+            </a>
+            <a href="{{ url_for('students') }}" class="nav-item {% if 'student' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">👤</span> Students
+            </a>
+            <a href="{{ url_for('companies') }}" class="nav-item {% if 'compan' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">🏢</span> Companies
+            </a>
+            <a href="{{ url_for('jobs') }}" class="nav-item {% if 'job' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">💼</span> Job Postings
+            </a>
+            <a href="{{ url_for('applications') }}" class="nav-item {% if 'application' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">📋</span> Applications
+            </a>
+            {% if session.role == 'admin' %}
+            <a href="{{ url_for('users') }}" class="nav-item {% if 'user' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">🔑</span> Manage Users
+            </a>
+            {% endif %}
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-badge">
+                <div class="user-avatar">{{ session.name[0] }}</div>
+                <div>
+                    <div class="user-name">{{ session.name }}</div>
+                    <div class="user-role">{{ session.role }}</div>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-inner">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for cat, msg in messages %}
+                  <div class="alert alert-{{ cat }}">{{ msg }}</div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+{% else %}
+{% block auth %}{% endblock %}
+{% endif %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

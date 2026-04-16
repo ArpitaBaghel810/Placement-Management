@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Applications{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">📋 <span>Applications</span></div>
+    {% if session.role == 'admin' %}
+    <a href="{{ url_for('add_application') }}" class="btn btn-primary">+ Add Application</a>
+    {% endif %}
+</div>
+<div class="table-card">
+    <div class="table-head">
+        <div class="table-title">All Applications ({{ apps|length }})</div>
+    </div>
+    {% if apps %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Company</th>
+                <th>Job Role</th>
+                <th>CGPA</th>
+                <th>Status</th>
+                <th>Date</th>
+                {% if session.role == 'admin' %}<th>Update</th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in apps %}
+            <tr>
+                <td style="color:var(--muted);">{{ loop.index }}</td>
+                <td>
+                    <strong>{{ a.student_name }}</strong><br>
+                    <span style="color:var(--muted);font-size:12px;">{{ a.branch }}</span>
+                </td>
+                <td>{{ a.company_name }}</td>
+                <td>{{ a.job_title }}</td>
+                <td><strong style="color:var(--accent2);">{{ a.cgpa }}</strong></td>
+                <td><span class="badge badge-{{ a.status }}">{{ a.status }}</span></td>
+                <td style="color:var(--muted);">{{ a.applied_date.strftime('%d %b %Y') }}</td>
+                {% if session.role == 'admin' %}
+                <td>
+                    <form class="status-form" method="POST" action="{{ url_for('update_application', id=a.id) }}">
+                        <select name="status" class="status-select" onchange="this.form.submit()">
+                            {% for s in ['applied','shortlisted','interview','selected','rejected'] %}
+                            <option value="{{ s }}" {% if a.status == s %}selected{% endif %}>{{ s|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="empty-icon">📋</div>No applications yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

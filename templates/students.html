@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Students{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">👤 <span>Students</span></div>
+    {% if session.role == 'admin' %}
+    <a href="{{ url_for('add_student') }}" class="btn btn-primary">+ Add Student</a>
+    {% endif %}
+</div>
+
+<div class="table-card">
+    <div class="table-head">
+        <div class="table-title">All Students ({{ students|length }})</div>
+    </div>
+    {% if students %}
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>CGPA</th>
+                <th>Skills</th>
+                {% if session.role == 'admin' %}<th>Actions</th>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in students %}
+            <tr>
+                <td style="color:var(--muted);">{{ loop.index }}</td>
+                <td><strong>{{ s.name }}</strong></td>
+                <td style="color:var(--muted);">{{ s.email }}</td>
+                <td>{{ s.branch }}</td>
+                <td>{{ s.year }}</td>
+                <td><strong style="color:var(--accent2);">{{ s.cgpa }}</strong></td>
+                <td style="color:var(--muted); font-size:12px;">{{ s.skills[:40] }}{% if s.skills|length > 40 %}...{% endif %}</td>
+                {% if session.role == 'admin' %}
+                <td>
+                    <div class="actions">
+                        <a href="{{ url_for('edit_student', id=s.id) }}" class="btn btn-edit btn-sm">Edit</a>
+                        <a href="{{ url_for('delete_student', id=s.id) }}" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this student?')">Del</a>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty"><div class="empty-icon">👤</div>No students found.</div>
+    {% endif %}
+</div>
+{% endblock %}

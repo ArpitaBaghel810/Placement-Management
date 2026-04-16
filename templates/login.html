@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block auth %}
+<div class="login-wrap">
+    <div class="login-card">
+        <div class="login-logo">🎓</div>
+        <div class="login-title">PlaceCell</div>
+        <div class="login-sub">University Placement Portal</div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}{% for cat, msg in messages %}
+            <div class="alert alert-{{ cat }}">{{ msg }}</div>
+          {% endfor %}{% endif %}
+        {% endwith %}
+        <form class="login-form" method="POST">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="admin@university.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="login-btn">Sign In →</button>
+        </form>
+        <div class="login-hint">
+            Default: admin@university.com / admin123
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Post Job{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="page-title">💼 <span>Post New Job</span></div>
+    <a href="{{ url_for('jobs') }}" class="btn btn-outline">← Back</a>
+</div>
+<div class="form-card">
+    <form method="POST">
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Company</label>
+                <select name="company_id" required>
+                    <option value="">Select Company</option>
+                    {% for c in companies %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Job Title</label>
+                <input type="text" name="title" required placeholder="e.g. Software Engineer">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="e.g. Bangalore">
+            </div>
+            <div class="form-group">
+                <label>Salary Package</label>
+                <input type="text" name="salary" placeholder="e.g. 6-8 LPA">
+            </div>
+            <div class="form-group">
+                <label>Application Deadline</label>
+                <input type="date" name="deadline">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select name="status">
+                    <option value="open">Open</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+            <div class="form-group full">
+                <label>Job Description</label>
+                <textarea name="description" placeholder="Describe the job role..."></textarea>
+            </div>
+            <div class="form-group full">
+                <label>Requirements / Eligibility</label>
+                <textarea name="requirements" placeholder="Skills required, CGPA criteria..."></textarea>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Job</button>
+            <a href="{{ url_for('jobs') }}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
