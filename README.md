@@ -14,13 +14,13 @@ This system helps manage **students, companies, job postings, and applications**
 
 | Sr | Description                    | Link      |
 | -- | --------------                 | --------- |
-| 1  | Project Code                   | [View](#) |
-| 2  | Project Report                 | [View](#) |
+| 1  | Project Code                   | [View](https://github.com/ArpitaBaghel810/Placement-Management) |
+| 2  | Project Report                 | [View](https://github.com/ArpitaBaghel810/Placement-Management/blob/main/Student_Placement_Tracker_v2.docx) |
 | 3  | Final PPT                      | [View](#) |
-| 4  | RA2411030030048_Certificate 1  | [View](#) |
-| 5  | RA2411030030053_Certificate 2  | [View](#) |     
-| 6  | RA2411030030048_CourseReport   | [View](#) |
-| 7  | RA2411030030053_CourseReport   | [View](#) |
+| 4  | RA2411030030048_Certificate 1  | [View](https://github.com/ArpitaBaghel810/Placement-Management/blob/main/arpita%20course%20Certificate.png) |
+| 5  | RA2411030030053_Certificate 2  | [View](https://github.com/ArpitaBaghel810/Placement-Management/blob/main/mahi%20course%20certificate.jpeg) |     
+| 6  | RA2411030030048_CourseReport   | [View](https://github.com/ArpitaBaghel810/Placement-Management/blob/main/ARPITA_DBMS_COURSE_REPORT.pdf) |
+| 7  | RA2411030030053_CourseReport   | [View](https://github.com/ArpitaBaghel810/Placement-Management/blob/main/Mahi%20DBMS%20COURSE%20REPORT%20(1).pdf) |
 
 
 
